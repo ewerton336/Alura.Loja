@@ -12,8 +12,36 @@ namespace Alura.Loja.Testes.ConsoleApp
         static void Main(string[] args)
         {
             // GravarUsandoAdoNet();
-            GravarUsandoEntity();
-            RecuperarProdutos();
+            //GravarUsandoEntity();
+            //RecuperarProdutos();
+            //ExcluirProdutos();
+            //AtualizarProduto();
+
+        }
+
+        private static void AtualizarProduto()
+        {
+            using (var repo = new LojaContext())
+            {
+                var produtos = repo.Produtos.ToList();
+                var result = produtos.FirstOrDefault(p => p.Id == 8);
+                result.Nome = "A lenda do chupacu de goianinha";
+                repo.SaveChanges();
+            }
+
+        }
+
+        private static void ExcluirProdutos()
+        {
+            using (var repo = new LojaContext())
+            {
+                IList<Produto> produtos = repo.Produtos.ToList();
+                foreach (var item in produtos)
+                {
+                    repo.Produtos.Remove(item);
+                }
+                repo.SaveChanges();
+            }
         }
 
         private static void RecuperarProdutos()
@@ -21,6 +49,7 @@ namespace Alura.Loja.Testes.ConsoleApp
             using (var repo = new LojaContext())
             {
                 List<Produto> produtos = repo.Produtos.ToList();
+
             }
         }
 
@@ -54,19 +83,19 @@ namespace Alura.Loja.Testes.ConsoleApp
             p3.Categoria = "Livros";
             p3.Preco = 19.89;
 
-     
+
 
             using (var contexto = new LojaContext())
             {
-               contexto.Produtos.Add(p1);
+                contexto.Produtos.Add(p1);
                 contexto.Produtos.Add(p2);
                 contexto.Produtos.Add(p3);
                 contexto.SaveChanges();
 
-           
+
             }
 
-            
+
         }
     }
 }
